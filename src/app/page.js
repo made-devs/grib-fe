@@ -9,12 +9,14 @@ import LBHSection from '../components/Home/LBHSsection';
 import TrainingSection from '../components/Home/TrainingSection';
 import MediaGallery from '../components/Home/MediaGallery';
 import JoinCTA from '../components/Home/JoinCTA';
+import VisiMisi from '../components/Home/VisiMisi';
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#0a0a0a] selection:bg-[#D4AF37] selection:text-black">
       <Navbar />
       <HeroSection />
+      <VisiMisi />
       <ProgramSlider />
       <AboutSection />
       <EconomicPillars />

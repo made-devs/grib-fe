@@ -1,0 +1,61 @@
+"Tactical Luxury Command"
+(Atau bisa disebut: Modern Fortress UI)
+
+Ini adalah gabungan dari nuansa militer/taktis (karena GRIB itu ormas berseragam/komando) dengan sentuhan kemewahan (Gold) dan teknologi modern.
+
+Kalau lo mau request style ginian lagi ke gue (atau desainer lain), lo bisa kasih Cheat Sheet detail di bawah ini. Ini "resep rahasia" dari desain yang udah gue buat buat lo:
+
+1. Color Palette (Palet Warna)
+Jangan cuma bilang "Hitam Emas", tapi spesifik:
+
+Background: Bukan hitam mati (#000), tapi Void Black (#050505 atau #0a0a0a). Ini bikin mata nggak sakit dan terlihat lebih elegan/mahal.
+
+Primary Accent: Metallic Gold (#D4AF37). Digunakan untuk tombol, garis penting, atau highlight teks.
+
+Secondary Accent: Dark Graphite (#1a1a1a atau #111). Untuk warna kartu (cards) atau section pembeda.
+
+Text: Off-White (#ededed) & Muted Gray (#888). Putihnya nggak nusuk mata, abunya buat teks pendukung biar nggak rebutan perhatian.
+
+2. Typography (Huruf)
+Kuncinya ada di kontras antara "Judul Tegas" dan "Isi Bersih".
+
+Headings (Judul): Font Oswald (atau Druk Wide / Tungsten).
+
+Ciri: Huruf kapital semua (UPPERCASE), tebal (Bold/Black), dan rapat (Condensed). Ini ngasih kesan "TERIAK" tapi berwibawa.
+
+Body (Isi): Font Inter (atau Manrope / Roboto).
+
+Ciri: Sans-serif geometris, bersih, mudah dibaca, modern.
+
+Technical Text: Font Monospace (seperti kode program).
+
+Ciri: Ukuran kecil, dipakai untuk dekorasi kayak "STATUS: ONLINE", "REC ●", atau koordinat peta.
+
+3. UI Elements (Elemen Antarmuka)
+Ini yang bikin web lo beda dari web ormas jadul:
+
+HUD (Heads-Up Display) Aesthetics: Dekorasi ala layar jet tempur atau kamera drone.
+
+Contoh: Garis tipis 1px, sudut siku (corner brackets) di pojok kartu, garis radar yang bergerak.
+
+Bento / Masonry Grid: Layout kotak-kotak yang rapat dan presisi, nggak banyak ruang kosong yang awkward. Kelihatan solid dan kokoh.
+
+Glassmorphism (Dark): Efek kaca buram gelap (backdrop-blur) untuk Navbar atau panel info yang melayang di atas peta/gambar.
+
+Sharp Edges: Sudut-sudut tajam atau rounded kecil (radius 4px - 8px). Hindari fully rounded (bulat banget) karena bakal kelihatan terlalu "lembut/playful".
+
+4. Motion & Animation (Gerakan)
+Gue pake GSAP dengan gaya gerakan spesifik:
+
+Masking Reveal: Teks/Gambar muncul seolah-olah keluar dari balik tembok (bukan fade-in hantu). Kelihatan tajam.
+
+Parallax: Background bergerak lebih lambat dari konten depan saat discroll. Ngasih kesan kedalaman (3D).
+
+Stagger: Elemen muncul berurutan (satu-satu) dengan cepat, kayak barisan tentara masuk lapangan.
+
+Marquee: Teks berjalan horizontal (kayak breaking news) untuk ngasih kesan dinamis/live.
+
+5. Keyword Request (Cara Request ke Gue)
+Nanti kalau lo mau nambah halaman atau fitur baru, lo tinggal bilang gini:
+
+"Bro, buatin halaman [X]. Stylenya tetep Tactical Luxury. Pake background Void Black, font Oswald buat judul biar tegas. Kasih elemen dekorasi HUD/Tech kayak garis radar atau corner brackets. Animasinya yang tajem pake GSAP Masking ya."

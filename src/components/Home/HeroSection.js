@@ -216,7 +216,7 @@ export default function HeroSection() {
                 <p className="text-white font-oswald text-xl uppercase">
                   Pendaftaran Dibuka
                 </p>
-                <div className="w-full bg-gray-800 h-[2px] mt-3 relative overflow-hidden">
+                <div className="w-full bg-gray-800 h-0.5 mt-3 relative overflow-hidden">
                   <div className="absolute top-0 left-0 h-full w-2/3 bg-[#D4AF37]"></div>
                 </div>
               </div>
