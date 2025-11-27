@@ -1,0 +1,519 @@
+added in v3.10.0
+
+ScrollSmoother
+Quick Start
+CDN Link
+Copy
+gsap.registerPlugin(ScrollSmoother) 
+
+Minimal usage
+ScrollSmoother.create({
+  smooth: 1,
+  effects: true,
+});
+
+ScrollSmoother adds a vertical smooth-scrolling effect to a ScrollTrigger-based page. Unlike most smooth-scrolling libraries, ScrollSmoother leverages NATIVE scrolling - it doesn't add "fake" scrollbars nor does it mess with touch/pointer functionality. That means it doesn't suffer from many of the accessibility annoyances common with smooth-scrolling sites.
+
+Detailed walkthrough
+
+Highlights
+Feature Highlights
+Uses the browser's native scroll; no "fake" scrollbars.
+Add a parallax effect by defining a data-speed attribute on any element, like data-speed="0.5" would make that element "scroll" at half-speed while it's in the viewport. It arrives at its normal position in the document flow when it's centered vertically.
+Put a larger image/element inside a container that has overflow: hidden and then set the child's data-speed="auto" and it'll automatically calculate exactly how far it can move inside that container (parallax).
+Make an element appear to lag behind, taking a certain amount of time to "catch up" to the smoothed scroll position. It's a really fun effect! Simply define a data-lag attribute, like data-lag="0.5" would take 0.5 seconds to "catch up".
+read more...
+Setup
+Your HTML content should reside in a single content element (usually a <div> but it doesn't really matter) - that's what gets moved around when the user scrolls. That content element is wrapped in a wrapper element that serves as the viewport. The actual scrollbar remains on the <body>, so your setup would look like:
+
+<body>
+  <div id="smooth-wrapper">
+    <div id="smooth-content">
+      <!--- ALL YOUR CONTENT HERE --->
+    </div>
+  </div>
+  <!-- position: fixed elements can go outside --->
+</body>
+
+Under the hood, everything flows through ScrollTrigger which watches the page's native scroll position and then ScrollSmoother applies transforms to the content to gradually catch up with that scroll position. So if you suddenly drag the native scrollbar 500px, ScrollSmoother will gradually move the content to that spot using inline CSS transforms (matrix3d()) on the content. Since ScrollSmoother is built on top of ScrollTrigger, don't forget to register them both:
+
+gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+
+Example
+// create the scrollSmoother before your scrollTriggers
+ScrollSmoother.create({
+  smooth: 1, // how long (in seconds) it takes to "catch up" to the native scroll position
+  effects: true, // looks for data-speed and data-lag attributes on elements
+  smoothTouch: 0.1, // much shorter smoothing time on touch devices (default is NO smoothing on touch devices)
+});
+
+loading...
+Config Object
+The configuration object can have any of the following optional properties:
+
+Property
+Description
+content
+Element | String - the element containing all of your HTML content. This one content element is what gets moved around when scrolling. By default, it will automatically find the element with an id of "smooth-content", so if you're following that convention there's no need to even define content. The HTML structure would look like this:
+<div id="smooth-wrapper">
+  <div id="smooth-content">
+    <!--- ALL YOUR CONTENT HERE --->
+  </div>
+</div>
+<!-- position: fixed elements can go outside -->
+
+ease
+String | Function - the easing function to be used for smooth scrolling (defaults to "expo").
+effects
+boolean | String | Array - if true, ScrollSmoother will find all elements that have a data-speed and/or data-lag attribute and apply those effects accordingly so that they move at the designated speed or delay, so data-speed="0.5" would scroll at half the normal speed, and data-speed="2" would scroll at twice the normal speed. data-lag="0.8" would take 0.8 seconds to "catch up" to the smoothed scroll position. You can also use selector text or an Array of elements, so effects: ".box" would only look for the attributes on elements with the ".box" class. You can use the effects() method to apply effects directly via JavaScript instead. See that method's docs for more details about how effects work. Note: effects should not be nested.
+effectsPadding
+Number - Normally effects applied to a particular element begin as soon as the natural position of the element enters the viewport and then end when the natural position leaves the viewport, but in some rare cases you may want to expand that, so you can pass a number (in pixels) as the effectsPadding. Added in 3.11.4
+effectsPrefix
+String - perhaps you're already using data-speed and/or data-lag for other purposes and you'd like to use a custom prefix for effects data attributes like effectsPrefix: "scroll-" would resolve to data-scroll-speed and data-scroll-lag. Added in 3.10.5
+ignoreMobileResize
+Boolean - if true, vertical resizes (of 25% of the viewport height) on touch-only devices won't trigger a ScrollTrigger.refresh(), avoiding the jumps that can happen when the start/end values are recalculated. Beware that if you skip the refresh(), the start/end trigger positions may be inaccurate but in many scenarios that's preferable to the visual jumps that occur due to the new start/end positions.
+onFocusIn
+Function - a function to call when a new element receives focus and you can return false if you want ScrollSmoother to skip ensuring that the element is in the viewport (overriding that default behavior).
+onStop
+Function - a function to call when the smoothed scroll comes to a stop (catches up to the native scroll position).
+onUpdate
+Function - a function to call after each time the SmoothScroller updates the position of the content.
+normalizeScroll
+boolean - if true, it forces scrolling to be done on the JavaScript thread, ensuring it is synchronized and the address bar doesn't show/hide on mobile devices. This is the same as calling ScrollTrigger.normalizeScroll() except that it debounces because smooth scrolling makes that possible.
+smooth
+Number - the time (in seconds) that it takes to "catch up" to the native scroll position. By default, it is 0.8 seconds.
+smoothTouch
+Boolean | Number - by default, ScrollSmoother will NOT apply scroll smoothing on touch-only devices (like phones) because that typically feels odd to users when it disconnects from their finger's drag position, but you can force smoothing on touch devices too by setting smoothTouch: true (same as smooth value) or specify an amount like smoothTouch: 0.1 (in seconds).
+speed
+Number - a multiplier for overall scroll speed, so 2 would make it scroll twice the normal speed, and 0.5 would make it scroll at half-speed. added in version 3.11.4.
+wrapper
+Element | String - the outer-most element that serves as the viewport. Its only child should be the content element which is what gets moved around when scrolling. By default, it will automatically find the element with an id of "smooth-wrapper", so if you're following that convention there's no need to even define wrapper. If it cannot find a wrapper, one will automatically be created. You can use selector text like "#elementID" or reference the element itself.
+Speed (parallax)
+When you set effects: true, ScrollSmoother finds all elements that have a data-speed attribute and applies a parallax effect accordingly so that they move at the designated speed. For example:
+
+<div data-speed="0.5"></div>
+<!-- half-speed of scroll -->
+<div data-speed="2"></div>
+<!-- double-speed of scroll -->
+<div data-speed="1"></div>
+<!-- normal speed of scroll -->
+<div data-speed="auto"></div>
+<!-- auto-calculated based on how far it can move inside its container -->
+
+"auto" speed
+When you set the speed to "auto", it will calculate how far it can move inside its parent container in the direction of the largest gap (up or down). So it's perfect for parallax effects - just make the child larger than its parent, align it where you want it (typically its top edge at the top of the container, or the bottom edge at the bottom of the container) and let ScrollSmoother do its magic. Obviously set overflow: hidden on the parent so it clips the child.
+
+clamp() speed effects
+Have you ever had an element that you natively placed toward the very top of your page but when you apply a data-speed, it starts out shifted from its native position? That's because by default, speed effects cause elements to reach their "native" position when centered vertically in the viewport, so they'll likely start out offset. Starting in version 3.12, you can wrap your speed value in "clamp()" to make them start out in their native position if they're "above the fold" (inside the viewport when scrolled to the very top). Under the hood, data-speed effects are driven by ScrollTrigger instances, so this a way to employ ScrollTrigger's clamp() feature that prevents the start/end values from "leaking" outside the page bounds (never less than 0 and never more than the maximum scroll position). For example:
+
+<div data-speed="clamp(0.5)"></div>
+<!-- clamped half-speed -->
+
+Feature Walkthrough
+
+You can also use the effects() method to dynamically apply speed or lag effects to targets (including function-based ones). Note: effects should not be nested.
+
+let scroller = ScrollSmoother.create({...});
+scroller.effects(".box", {speed: 0.5, lag: 0.1});
+
+Keep in mind that the elements will hit their "natural" position in the CENTER of the viewport. Here's a visual demo from @snorkltv:
+
+loading...
+Lag (the delightful kind)
+Think of a "lag" like making the element lazy, allowing it to drift from its normal scroll position, taking a certain amount of time to "catch up". You can assign slightly different lags to elements in close proximity to give them a staggered effect when scrolling that's quite pleasing to the eye. If you set effects: true on the ScrollSmoother.create() config, it'll automatically find any elements with the data-lag attribute and apply that effect:
+
+<div data-lag="0.5"></div>
+<!-- takes 0.5 seconds to "catch up" -->
+<div data-lag="0.8"></div>
+<!-- takes 0.8 seconds to "catch up" -->
+
+You can also use the effects() method to dynamically apply speed or lag effects to targets (including function-based ones) via JavaScript.
+
+let scroller = ScrollSmoother.create({...});
+scroller.effects(".box", {lag: 0.5, speed: 1});
+
+Caveats
+warning
+**position: fixed should be outside the wrapper **- since the content has a CSS transform applied, browsers create a new containing block and that means position: fixed elements will be fixed to the content rather than the viewport. That's not a bug - it's just how CSS/browsers work. You can use ScrollTrigger pinning instead or you could put any position: fixed elements OUTSIDE the wrapper/content.
+normalizeScroll: true doesn't prevent the address bar from hiding/showing on iOS phones in portrait orientation - the latest Apple iOS makes it impossible to prevent that (at least from what we can tell). Even though event.preventDefault() is called on all scroll-related events, the browser still imposes that behavior. If that causes a jump due to the window resizing and making your ScrollTriggers recalculate their start/end positions, you could ScrollTrigger.config({ ignoreMobileResize: true });
+Properties
+.progress : Number
+The progress value of the overall page scroll where 0 is at the very top and 1 is at the very bottom and 0.5 is halfway scrolled. This value will animate during the smooth scrolling and end when the onStop fires.
+
+.scrollTrigger : ScrollTrigger
+The ScrollTrigger instance that ScrollSmoother created internally to manage the smooth scrolling effect of the page.
+
+.vars : Object
+The configuration object passed into the ScrollSmoother.create() initially.
+
+Methods
+.content( element:String | Element ) : Element | self
+Gets/Sets the content element.
+
+.effects( targets:String | Element | Array, config:Object | null ) : Array
+Adds parallax elements that should be managed by the ScrollSmoother
+
+.getVelocity( ) : Number
+Returns the current velocity of the smoothed scroll in pixels-per-second
+
+.kill( ) ;
+Kills the entire ScrollSmoother as well as any effects that were applied.
+
+.offset( target:String | Element, position:String ) : Number
+Calculates the numeric offset (scroll position in pixels) that corresponds to when a particular element reaches the specified position like:
+
+.paused( pause:Boolean ) : Boolean | self
+Gets/Sets the paused state - if true, nothing will scroll (except via scrollTop() or scrollTo() on this instance).
+
+.scrollTo( target:Number | String | Element, smooth:Boolean, position:String ) ;
+Scrolls to a particular position or element
+
+.scrollTop( position:Number ) : Number | void
+Immediately gets/sets the scroll position (in pixels).
+
+.smooth( duration:Number ) : Number | self
+Gets/Sets the number of seconds it takes to catch up to the scroll position (smoothing).
+
+.create( ) ;
+.get( ) : ScrollSmoother
+Returns the ScrollSmoother instance (if one has been created). There can only be one instance at any given time.
+
+.wrapper( element:String | Element ) : Element | self
+Gets/Sets the wrapper element.
+
+
+ScrollTrigger enables anyone to create jaw-dropping scroll-based animations with minimal code. Infinitely flexible. Scrub, pin, snap, or just trigger anything scroll-related, even if it has nothing to do with animation.
+
+Detailed walkthrough
+
+Get ahead of the game by also learning about the most common ScrollTrigger mistakes.
+
+Simple example
+gsap.to('.box', {
+	scrollTrigger: '.box', // start the animation when ".box" enters the viewport (once)
+	x: 500
+});
+
+Advanced example
+let tl = gsap.timeline({
+	// yes, we can add it to an entire timeline!
+	scrollTrigger: {
+		trigger: '.container',
+		pin: true, // pin the trigger element while active
+		start: 'top top', // when the top of the trigger hits the top of the viewport
+		end: '+=500', // end after scrolling 500px beyond the start
+		scrub: 1, // smooth scrubbing, takes 1 second to "catch up" to the scrollbar
+		snap: {
+			snapTo: 'labels', // snap to the closest label in the timeline
+			duration: { min: 0.2, max: 3 }, // the snap animation should be at least 0.2 seconds, but no more than 3 seconds (determined by velocity)
+			delay: 0.2, // wait 0.2 seconds from the last scroll event before doing the snapping
+			ease: 'power1.inOut' // the ease of the snap animation ("power3" by default)
+		}
+	}
+});
+
+// add animations and labels to the timeline
+tl.addLabel('start')
+	.from('.box p', { scale: 0.3, rotation: 45, autoAlpha: 0 })
+	.addLabel('color')
+	.from('.box', { backgroundColor: '#28a92b' })
+	.addLabel('spin')
+	.to('.box', { rotation: 360 })
+	.addLabel('end');
+
+
+Standalone/Custom example
+You don't need to put ScrollTriggers directly into animations (though that's probably the most common use case). Use the callbacks for anything...
+
+ScrollTrigger.create({
+	trigger: '#id',
+	start: 'top top',
+	endTrigger: '#otherID',
+	end: 'bottom 50%+=100px',
+	onToggle: (self) => console.log('toggled, isActive:', self.isActive),
+	onUpdate: (self) => {
+		console.log(
+			'progress:',
+			self.progress.toFixed(3),
+			'direction:',
+			self.direction,
+			'velocity',
+			self.getVelocity()
+		);
+	}
+});
+
+Features
+Feature Highlights
+Link any animation to a particular element so that it only plays when that element is in the viewport. This improves performance and ensures that your beautiful animations actually get seen!
+ScrollTriggers can perform an actions on an animation (play, pause, resume, restart, reverse, complete, reset) when entering/leaving the defined area or link it directly to the scrollbar so that it acts like a scrubber (scrub: true).
+Soften the link between the animation and the the scrollbar so that takes a certain amount of time to "catch up", like scrub: 1 would take one second to catch up.
+Integrated with ScrollSmoother, GreenSock's smooth-scrolling tool built on native scroll technology (members-only benefit).
+read more...
+Config Object
+scrollTrigger can be used as either a shorthand for the trigger (described below) or as a configuration object with any of the following properties:
+
+Property
+Description
+animation
+Tween | Timeline - A GSAP Tween or Timeline instance that should be controlled by the ScrollTrigger. Only one animation is controlled per ScrollTrigger, but you can wrap all your animations in a single Timeline (recommended) or create multiple ScrollTriggers if you prefer.
+anticipatePin
+Number - If you pin large sections/panels you may notice what looks like a slight delay in pinning when you scroll quickly. That's caused by the fact that most modern browsers handle scroll repaints on a separate thread, so at the moment of pinning the browser may have already painted the pre-pinned content, making it visible for perhaps 1/60th of a second. The only way to counteract that is to have ScrollTrigger monitor the scroll velocity and anticipate the pin, applying it slightly early to avoid that flash of unpinned content. A value of anticipatePin: 1 is typically fine, but you can reduce or increase that number to control how early it does the pinning. In many cases, however, you don't need any anticipatePin (the default is 0).
+containerAnimation
+Tween | Timeline Easily trigger animations inside 'horizontally' scrolling sections that are controlled by vertical scrolling
+View More details
+end
+String | Number | Function - Determines the ending position of the ScrollTrigger.
+View More details
+endTrigger
+String | Element - The element (or selector text for the element) whose position in the normal document flow is used for calculating where the ScrollTrigger ends. You don't need to define an endTrigger unless it's DIFFERENT than the trigger element because that's the default.
+fastScrollEnd
+Boolean | Number - if true, it will force the current ScrollTrigger's animation to completion if you leave its trigger area faster than a certain velocity (default 2500px/s). This helps avoid overlapping animations when the user scrolls quickly. You can specify a number for the minimum velocity, so fastScrollEnd: 3000 would only activate if the velocity exceeds 3000px/s. See a demo here.
+horizontal
+Boolean - By default, it assumes your setup uses vertical scrolling but simply set horizontal: true if your setup uses horizontal scrolling instead.
+id
+String - An arbitrary unique identifier for the ScrollTrigger instance which can be used with ScrollTrigger.getById(). This id is also added to the markers.
+invalidateOnRefresh
+Boolean - If true, the animation associated with the ScrollTrigger will have its invalidate() method called whenever a refresh() occurs (typically on resize). This flushes out any internally-recorded starting values.
+markers
+Object | Boolean - Adds markers that are helpful during development/troubleshooting. markers: true adds them with the defaults (startColor: "green", endColor: "red", fontSize: "16px", fontWeight: "normal", indent: 0) but you can customize them by using an object like
+markers: {startColor: "white", endColor: "white", fontSize: "18px", fontWeight: "bold", indent: 20}
+
+
+once
+Boolean - If true, the ScrollTrigger will kill() itself as soon as the end position is reached once. This causes it to stop listening for scroll events and it becomes eligible for garbage collection. This will only call onEnter a maximum of one time as well. It does not kill the associated animation. It's perfect for times when you only want an animation to play once when scrolling forward and never get reset or replayed. It also sets the toggleActions to "play none none none".
+onEnter
+Function - A callback for when the scroll position moves forward past the "start" (typically when the trigger is scrolled into view). It receives one parameter - the ScrollTrigger instance itself which has properties/methods like progress, direction, isActive, and getVelocity(). Example:
+onEnter: ({progress, direction, isActive}) => console.log(progress, direction, isActive)
+
+
+onEnterBack
+Function - A callback for when the scroll position moves backward past the "end" (typically when the trigger is scrolled back into view). It receives one parameter - the ScrollTrigger instance itself which has properties/methods like progress, direction, isActive, and getVelocity(). Example:
+onEnterBack: ({progress, direction, isActive}) => console.log(progress, direction, isActive)
+
+
+onLeave
+Function - A callback for when the scroll position moves forward past the "end" (typically when the trigger is scrolled out of view). It receives one parameter - the ScrollTrigger instance itself which has properties/methods like progress, direction, isActive, and getVelocity(). Example:
+onLeave: ({progress, direction, isActive}) => console.log(progress, direction, isActive)
+
+
+onLeaveBack
+Function - A callback for when the scroll position moves backward past the "start" (typically when the trigger is scrolled all the way backward past the start). It receives one parameter - the ScrollTrigger instance itself which has properties/methods like progress, direction, isActive, and getVelocity(). Example:
+onLeaveBack: ({progress, direction, isActive}) => console.log(progress, direction, isActive)
+
+
+onRefresh
+Function - A callback for when the a refresh occurs (typically a resize event) which forces the ScrollTrigger to recalculate all of its positioning. It receives one parameter - the ScrollTrigger instance itself which has properties/methods like progress, direction, isActive, and getVelocity(). Example:
+onRefresh: ({progress, direction, isActive}) => console.log(progress, direction, isActive)
+
+
+onUpdate
+Function - A callback that gets called every time the progress of the ScrollTrigger changes (meaning the scroll position changed). If you have a numeric scrub applied, keep in mind that the associated animation will keep scrubbing for a little while after the scroll position stops, so if your goal is to update something whenever the animation updates, it's best to apply an onUpdate to the animation itself rather than the ScrollTrigger. See a demo here.
+
+The onUpdate callback receives one parameter - the ScrollTrigger instance itself which has properties/methods like progress, direction, isActive, and getVelocity().
+
+Example:
+onUpdate: self => console.log("progress", self.progress)
+
+onScrubComplete
+Function - A callback for when a numerical scrub has completed. This is only useful when a numerical scrub (like scrub: 1) is applied. The callback receives one parameter - the ScrollTrigger instance itself which has properties/methods like progress, direction, isActive, and getVelocity(). Example:
+onScrubComplete: ({progress, direction, isActive}) => console.log(progress, direction, isActive)
+
+
+onSnapComplete
+Function - A callback for when the snapping has completed. This only applies when there's a snap defined. A snap will be cancelled if/when the user (or anything else) interacts in any way with scrolling, so the onSnapComplete would not be triggered at all in that case. The callback receives one parameter - the ScrollTrigger instance itself which has properties/methods like progress, direction, isActive, and getVelocity(). Example:
+onSnapComplete: ({progress, direction, isActive}) => console.log(progress, direction, isActive)
+
+
+onToggle
+Function - A callback for when the ScrollTrigger toggles from inactive to active or the other way around. This is typically when the scroll position moves past the "start" or "end" in either direction, but if it shoots past BOTH on the same tick, like if the user scrolls extremely fast, onToggle won't fire because the state hasn't changed. You can often use this one callback in the place of onEnter, onLeave, onEnterBack, and onLeaveBack by just checking the isActive property for toggling things. It receives one parameter - the ScrollTrigger instance itself which has properties/methods like progress, direction, isActive, and getVelocity(). Example:
+onToggle: self => console.log("toggled to active:", isActive)
+
+pin
+Boolean | String | Element - An element (or selector text for the element) that should be pinned during the time that the ScrollTrigger is active, meaning it will appear to "stick" in its starting position while the rest of the content continues scrolling underneath it. Only one pinned element is allowed, but it can contain as many elements as you want. Setting pin: true will cause it to pin the trigger element.
+
+Warning don't animate the pinned element itself because that will throw off the measurements (ScrollTrigger is highly optimized for performance and pre-calculates as much as possible). Instead, you could nest things such that you're animating only elements INSIDE the pinned element.
+
+Note: if you are pinning something that is nested inside another element that also gets pinned, make sure you define a pinnedContainer so that ScrollTrigger knows to offset the start/end positions accordingly.
+
+Using React? Make sure to do proper cleanup - read this article.
+
+pinnedContainer
+Element | String - If your ScrollTrigger's trigger/endTrigger element is INSIDE an element that gets pinned by another ScrollTrigger (pretty uncommon), that would cause the start/end positions to be thrown off by however long that pin lasts, so you can set the pinnedContainer to that parent/container element to have ScrollTrigger calculate those offsets accordingly. Again, this is very rarely needed. Important: nested pinning is not supported, so this feature is only for non-pinning ScrollTriggers
+
+(added in 3.7.0)
+
+pinReparent
+Boolean - If true, the pinned element will be reparented to the <body> while it is actively pinned so that it can escape any ancestor containing blocks. If you notice odd behavior while pinning (like the pinned element suddenly shifting and then moving with the scroll), you probably have a transform or will-change on an ancestor element which breaks position: fixed behavior (it's a browser thing, not ScrollTrigger). It's best to set up your project to avoid those because reparenting can be expensive, but pinReparent: true can bail you out if you can't avoid them. Only use this feature if you must.
+Warning: if you have CSS rules that rely on specific nesting that'd be affected by the reparenting, they'll break. For example, a CSS rule like .section .panel p {color: white} wouldn't apply to the nested <p> anymore if you pin the .panel element with pinReparent: true because during the pin, it would no longer be inside the <section>, so make sure you write your CSS rules to accommodate the reparenting.
+
+pinSpacer
+Element | String - normally ScrollTrigger creates a <div> internally to wrap around pinned elements but in the extremely rare scenario where you're loading an iframe into the pinned element, it can cause the iframe to refresh when ScrollTrigger refreshes (like on window resize), so this feature allows you to specify an element that should be used as the spacer instead of the internally-created one. That way, ScrollTrigger won't remove/add it during its refresh, keeping iframe content intact.
+pinSpacing
+Boolean | String - By default, padding will be added to the bottom (or right for horizontal: true) to push other elements down so that when the pinned element gets unpinned, the following content catches up perfectly. Otherwise, things may scroll UNDER the pinned element. You can tell ScrollTrigger not to add any padding by setting pinSpacing: false.
+
+View More details
+pinType
+"fixed" | "transform" - by default, position: fixed is used for pinning only if the scroller is the <body>, otherwise transforms are used (because position: fixed won't work in various nested scenarios), but you can force ScrollTrigger to use position: fixed by setting pinType: "fixed". Typically this isn't necessary or helpful. Beware that if you set the CSS property will-change: transform, browsers treat it just like having a transform applied, breaking position: fixed elements (this is unrelated to ScrollTrigger/GSAP).
+preventOverlaps
+Boolean | String - this feature activates as a ScrollTrigger is about to trigger an animation; it finds preceding scrollTrigger-based animations and forces those previous animations to their end state – avoiding unsightly overlaps. if true, it will affect all preceding ScrollTriggers. You can use an arbitrary string to limit their effect to only others with a matching string. So preventOverlaps: "group1" would only affect other ScrollTriggers with preventOverlaps: "group1". See a demo here.
+refreshPriority
+number - it's VERY unlikely that you'd need to define a refreshPriority as long as you create your ScrollTriggers in the order they'd happen on the page (top-to-bottom or left-to-right)...which we strongly recommend doing. Otherwise, use refreshPriority to influence the order in which ScrollTriggers get refreshed to ensure that the pinning distance gets added to the start/end values of subsequent ScrollTriggers further down the page (that's why order matters). See the sort() method for details. A ScrollTrigger with refreshPriority: 1 will get refreshed earlier than one with refreshPriority: 0 (the default). You're welcome to use negative numbers too, and you can assign the same number to multiple ScrollTriggers.
+scroller
+String | Element - By default, the scroller is the viewport itself, but if you'd like to add a ScrollTrigger to a scrollable <div>, for example, just define that as the scroller. You can use selector text like "#elementID" or the element itself.
+scrub
+Boolean | Number - Links the progress of the animation directly to the scrollbar so it acts like a scrubber. You can apply smoothing so that it takes a little time for the playhead to catch up with the scrollbar's position! It can be any of the following
+Boolean - scrub: true links the animation's progress directly to the ScrollTrigger's progress.
+Number - The amount of time (in seconds) that the playhead should take to "catch up", so scrub: 0.5 would cause the animation's playhead to take 0.5 seconds to catch up with the scrollbar's position. It's great for smoothing things out.
+snap
+Number | Array | Function | Object | "labels" | "labelsDirectional" - Allows you to snap to certain progress values (between 0 and 1) after the user stops scrolling. So snap: 0.1 would snap in increments of 0.1 (10%, 20%, 30%, etc.). snap: [0, 0.1, 0.5, 0.8, 1] would only let it come to rest on one of those specific progress values. It can be any of the following...
+View More details
+start
+String | Number | Function - Determines the starting position of the ScrollTrigger.
+View More details
+toggleActions
+String - Determines how the linked animation is controlled at the 4 distinct toggle places - onEnter, onLeave, onEnterBack, and onLeaveBack, in that order. The default is play none none none. So toggleActions: "play pause resume reset" will play the animation when entering, pause it when leaving, resume it when entering again backwards, and reset (rewind back to the beginning) when scrolling all the way back past the beginning. You can use any of the following keywords for each action: "play", "pause", "resume", "reset", "restart", "complete", "reverse", and "none".
+toggleClass
+String | Object - Adds/removes a class to an element (or multiple elements) when the ScrollTrigger toggles active/inactive. It can be either of the following:
+String - The name of the class to add to the trigger element, like toggleClass: "active"
+Object - To toggle a class for elements other than just the trigger, use the object syntax like toggleClass: {targets: ".my-selector", className: "active"}. The "targets" can be selector text, a direct reference to an element, or an Array of elements.
+Note that toggleActions don't apply to toggleClass. To have toggle class names in a different way, use the callback functions (onEnter, onLeave, onLeaveBack, and onEnterBack).
+trigger
+String | Element - The element (or selector text for the element) whose position in the normal document flow is used to calculate where the ScrollTrigger starts.
+Looking for Smooth Scrolling?
+GSAP's own ScrollSmoother tool is built on top of ScrollTrigger, so it is totally integrated and super easy to use. Built on native scroll technology, it avoids most of the accessibility issues that plague other smooth-scrolling libraries.
+
+Properties
+.animation : Tween | Timeline | undefined
+[read-only] The Tween or Timeline associated with the ScrollTrigger instance (if any).
+
+.direction : Number
+[read-only] Reflects the moment-by-moment direction of scrolling where 1 is forward and -1 is backward.
+
+.end : Number
+[read-only] The ScrollTrigger's ending scroll position (numeric, in pixels).
+
+.isActive : Boolean
+[read-only] Only true if the scroll position is between the start and end positions of the ScrollTrigger instance.
+
+.isTouch : Number
+A way to discern the touch capabilities of the current device - 0 is mouse/pointer only (no touch), 1 is touch-only, 2 accommodates both.
+
+.pin : Element | undefined
+[read-only] The pin element (if one was defined). If selector text was used, like ".pin", the pin will be the element itself (not selector text)
+
+progress : Number
+[read-only] The overall progress of the ScrollTrigger instance where 0 is at the start, 0.5 is in the middle, and 1 is at the end.
+
+scroller : Element | window
+[read-only] The scroller element (or window) associated with the ScrollTrigger. It's the thing whose scrollbar is linked to the ScrollTrigger. By default, it's the window (viewport).
+
+start : Number
+[read-only] The ScrollTrigger's starting scroll position (numeric, in pixels).
+
+.trigger : Element | undefined
+[read-only] The trigger element (if one was defined). If selector text was used, like ".trigger", the trigger will be the element itself (not selector text)
+
+.vars : Object
+[read-only] The vars configuration object used to create the ScrollTrigger instance
+
+Methods
+.disable( revert:boolean, allowAnimation:Boolean )
+Disables the ScrollTrigger instance, immediately unpinning and restoring any pin-related changes made to the DOM by ScrollTrigger.
+
+.enable( reset:Boolean )
+Enables the ScrollTrigger instance
+
+.getTween( snap:Boolean ) : Tween
+Returns the scrub tween (default) or the snapping tween (getTween(true))
+
+.getVelocity( ) : Number
+Gets the scroll velocity in pixels-per-second
+
+.kill( revert:boolean, allowAnimation:Boolean )
+Kills the ScrollTrigger instance, immediately unpinning and restoring any pin-related changes made to the DOM by ScrollTrigger and removing all scroll-related listeners, etc. so that the instance is eligible for garbage collection. If you only want to temporarily disable the ScrollTrigger, use the disable() method instead.
+
+.labelToScroll( label:String ) : Number
+Converts a timeline label into the associated scroll position (only applicable to ScrollTriggers whose "animation" is a timeline)
+
+.next( ) : ScrollTrigger instance
+Returns the next ScrollTrigger in the refresh order.
+
+.previous( ) : ScrollTrigger instance
+Returns the previous ScrollTrigger in the refresh order.
+
+.refresh()
+Forces the ScrollTrigger instance to re-calculate its start and end values (the scroll positions where it'll be activated).
+
+.scroll( position:Number ) : Number | null
+Gets/Sets the scroll position of the associated scroller (numeric).
+
+.addEventListener( type:String, callback:Function ) : null
+Add a listener for any of the following events: "scrollStart", "scrollEnd", "refreshInit", "revert", "matchMedia", or"refresh" which get dispatched globally when any such ScrollTrigger-related event occurs (it is not tied to a particular instance).
+
+.batch( triggers:Selector text | Array, vars:Object ) : Array
+Creates a coordinated group of ScrollTriggers (one for each target element) that batch their callbacks (onEnter, onLeave, etc.) within a certain interval, delivering a neat Array so that you can easily do something like create a staggered animation of all the elements that enter the viewport around the same time.
+
+.clearMatchMedia( query:String )
+.clearScrollMemory( scrollRestoration:String )
+Clears any recorded scroll positions in ScrollTrigger so that no scroll positions get restored after a refresh(). Normally, this isn't necessary but in some frameworks that handle routing in unconventional ways, it can be useful.
+
+.config( vars:Object )
+Allows you to configure certain global behaviors of ScrollTrigger like limitCallbacks
+
+.create( vars:Object ) : ScrollTrigger
+Creates a standalone ScrollTrigger instance
+
+.defaults( config:Object ) : null
+Allows you to set the default values that apply to every ScrollTrigger upon creation, like toggleActions, markers, etc.
+
+.getAll( ) : Array
+Returns an Array of all ScrollTrigger instances
+
+.getById( id:String ) : ScrollTrigger
+Returns the ScrollTrigger that was assigned the corresponding id
+
+.isInViewport( Element:Element | String, proportion:Number, horizontal:Boolean ) : Boolean
+Returns true if the element is in the viewport. You can optionally specify a minimum proportion, like ScrollTrigger.isInViewport(element, 0.2) would only return true if at least 20% of the element is in the viewport.
+
+.isScrolling( ) : Boolean
+Indicates whether or not any ScrollTrigger-related scroller is in the process of scrolling.
+
+.killAll( ) ;
+Immediately calls kill() on all ScrollTriggers (except the main ScrollSmoother one if it exists).
+
+.matchMedia( vars:Object )
+[DEPRECATED] Allows you to set up ScrollTriggers that only apply to certain viewport sizes (using media queries).
+
+.maxScroll( scroller:Element | window, horizontal:Boolean ) : Number
+A utility function for getting the maximum scroll value for a particular element/scroller. For example, if the element/scroller is 500px tall and contains 800px of content, maxScroll() would return 300.
+
+.normalizeScroll( normalize:Boolean | Object ) : ScrollObserver | null
+Forces scrolling to be done on the JavaScript thread, ensuring screen updates are synchronized and the address bar doesn't show/hide on [most] mobile devices.
+
+.observe( config:Object ) : Observer
+Super-flexible, unified way to sense meaningful events across all (touch/mouse/pointer) devices without wrestling with all the implementation details. Trigger simple callbacks like onUp, onDown, onLeft, onRight, onChange, onHover, onDrag, etc. Functionally identical to Observer.create()
+
+.positionInViewport( element:Element | String, referencePoint:String | Number, horizontal:Boolean ) : Number
+Returns a normalized value representing the element's position in relation to the viewport where 0 is at the top of the viewport, 0.5 is in the center, and 1 is at the bottom. So, for example, if the top of the element is 80% down from the top of the viewport, the following code would return 0.8: ScrollTrigger.positionInViewport(element, "top");
+
+.refresh( safe:Boolean )
+Recalculates the positioning of all of the ScrollTriggers on the page; this typically happens automatically when the window/scroller resizes but you can force it by calling ScrollTrigger.refresh()
+
+.removeEventListener( type:String, callback:Function ) : null
+Removes an event listener
+
+.saveStyles( targets:String | Element | Array )
+Internally records the current inline CSS styles for the given elements so that when ScrollTrigger reverts (typically for a refresh() or matchMedia() change) those elements will be reverted accordingly even if they had animations that added/changed inline styles. Think of it like taking a snapshot of the inline CSS and telling ScrollTrigger "re-apply these inline styles only and dump all others when you revert internally".
+
+.scrollerProxy( scroller:String | Element, vars:Object )
+Allows you to hijack the scrollTop and/or scrollLeft getters/setters for a particular scroller element so that you can implement things like smooth scrolling or other custom effects.
+
+.snapDirectional( incrementOrArray:Number | Array ) : Function
+Returns a snapping function to which you can feed any value to snap, along with a direction where 1 is forward (greater than) and -1 is backward (less than).
+
+.sort( func:Function ) : Array
+Sorts the internal Array of ScrollTrigger instances to control the order in which they refresh() (calculate their start/end values).
+
+.update( )
+Checks where the scrollbar is and updates all ScrollTrigger instances' progress and direction values accordingly, controls the animation (if necessary) and fires the appropriate callbacks.

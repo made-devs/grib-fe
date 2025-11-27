@@ -1,0 +1,194 @@
+KONSEP WEBSITE RESMI GRIB JAYA
+(Versi Notepad – Tinggal Copy)
+
+
+====================================================
+1. HALAMAN UTAMA (HOMEPAGE)
+====================================================
+
+- Banner utama: “GABUNG GRIB — JAMINAN JADI PENGUSAHA”.
+- Foto kegiatan GRIB Jaya.
+- Tombol cepat:
+  - Daftar Anggota Online
+  - Cari LBH GRIB Terdekat
+- Slider Program:
+  - Program Ekonomi GRIB
+  - Bantuan Hukum LBH GRIB
+  - Kolaborasi TJM / Pasticuan / Sentinel / Naga Autopart
+  - Pelatihan & Sertifikasi GRIB
+- Pesan utama:
+  “GRIB Jaya hadir untuk membangun ekonomi rakyat, membuka lapangan kerja, dan menyediakan bantuan hukum untuk masyarakat.”
+
+
+
+====================================================
+2. HALAMAN PROFIL ORGANISASI (ABOUT GRIB)
+====================================================
+
+- Sejarah singkat GRIB.
+- Struktur kepengurusan nasional.
+- Visi dan misi.
+- Program unggulan GRIB.
+- Dokumentasi kegiatan sosial dan kebangsaan.
+
+
+
+====================================================
+3. HALAMAN PROGRAM EKONOMI GRIB
+====================================================
+
+A. TJM GROUP (Otomotif Mobil & Motor)
+- Pelatihan mekanik mobil.
+- Pelatihan mekanik motor.
+- Sertifikasi otomotif.
+- Penyaluran kerja ke bengkel TJM.
+- Pelatihan wirausaha bengkel.
+- Pelatihan AC, detailing, kaki-kaki, electrical.
+
+CTA: “Daftar Pelatihan TJM Group”
+
+
+B. PASTICUAN GROUP (Bisnis Import & Online)
+- Program reseller produk impor.
+- Program dropshipper tanpa modal.
+- Pelatihan live streaming (TikTok/Shopee/IG).
+- Akses pricelist produk China.
+- Pelatihan import dasar.
+- Program “GRIB Store” produk impor & UMKM.
+
+CTA: “Jadi Reseller Produk Impor Termurah”
+
+
+C. SENTINEL GROUP (Security & Penyaluran Kerja)
+- Pelatihan Garda Pratama (Security).
+- Sertifikasi security.
+- Penyaluran tenaga security.
+- Pelatihan debt recovery.
+- Pelatihan bodyguard.
+- SOP keamanan acara dan event.
+
+CTA: “Daftar Pelatihan Security GRIB x Sentinel”
+
+
+D. NAGA AUTOPART GROUP (Suku Cadang & Sparepart)
+- Program reseller sparepart.
+- Distributor kecil untuk UMKM.
+- Harga khusus sparepart.
+- Pelatihan pengetahuan sparepart.
+- Program toko sparepart GRIB.
+
+CTA: “Daftar Program Usaha Sparepart GRIB”
+
+
+
+====================================================
+4. HALAMAN LBH GRIB (BANTUAN HUKUM NASIONAL)
+====================================================
+
+- Setiap kantor DPD menjadi LBH GRIB.
+- Google Maps LBH GRIB di seluruh Indonesia.
+- Nomor telepon LBH aktif di setiap DPD.
+- Sistem pengaduan hukum masyarakat.
+- Pelatihan pembuatan konten hukum untuk DPD.
+- Pembuatan konten edukasi hukum dari kasus-kasus yang ditangani LBH.
+- SOP pelayanan bantuan hukum.
+
+CTA: “Butuh Bantuan Hukum? Cari LBH GRIB Terdekat”
+
+
+
+====================================================
+5. HALAMAN PENDAFTARAN ANGGOTA (ONLINE REGISTRATION)
+====================================================
+
+- Form pendaftaran digital.
+- Upload KTP.
+- Verifikasi OTP.
+- Memilih jenis keanggotaan:
+  - Berbayar (pelatihan lengkap, sertifikasi, komunitas bisnis).
+  - Tidak berbayar (benefit dasar).
+- Anggota mendapatkan barcode/ID digital.
+- Bisa login ke member area.
+
+
+
+====================================================
+6. HALAMAN PELATIHAN & SERTIFIKASI
+====================================================
+
+Program yang tersedia:
+- Pelatihan Mekanik (TJM).
+- Pelatihan Live Streaming (Pasticuan).
+- Pelatihan Security (Sentinel).
+- Pelatihan Debt Recovery.
+- Pelatihan Bodyguard.
+- Pelatihan Sparepart (Naga Autopart).
+- Pelatihan Bahasa Inggris Dasar.
+- Pelatihan AI.
+- Pelatihan Marketplace.
+- Pelatihan UMKM.
+
+CTA: “Daftar Pelatihan Sekarang”
+
+
+
+====================================================
+7. HALAMAN MEDIA (DOKUMENTASI & KONTEN)
+====================================================
+
+- Video kegiatan GRIB.
+- Dokumentasi pelatihan.
+- Konten edukasi hukum LBH.
+- Kegiatan sosial dan bakti masyarakat.
+- Integrasi TikTok feed.
+- Galeri konten DPD seluruh Indonesia.
+
+
+
+====================================================
+8. HALAMAN MARKETPLACE / GRIB STORE
+====================================================
+
+- Produk impor (Pasticuan Group).
+- Produk UMKM anggota GRIB.
+- Produk sparepart (Naga Autopart).
+- Merchandise GRIB.
+- Pembelian langsung melalui website.
+
+
+
+====================================================
+9. HALAMAN HUBUNGI KAMI (CONTACT)
+====================================================
+
+- Hotline GRIB Nasional.
+- WhatsApp resmi.
+- Email GRIB.
+- Alamat Kantor DPP GRIB.
+- Maps LBH GRIB seluruh Indonesia.
+
+
+
+====================================================
+10. FITUR TEKNIS WEBSITE
+====================================================
+
+- Sistem login anggota.
+- Dashboard anggota.
+- QR/Barcode ID Digital.
+- Sistem training online.
+- Sistem e-learning.
+- Database anggota nasional.
+- Peta LBH nasional (Google Maps).
+- Sistem pengaduan hukum online.
+- Integrasi sosial media.
+- Sistem verifikasi anggota.
+- Sistem notifikasi SMS/WA.
+
+
+
+====================================================
+11. TAGLINE UTAMA WEBSITE
+====================================================
+
+“GABUNG GRIB — JAMINAN JADI PENGUSAHA”
