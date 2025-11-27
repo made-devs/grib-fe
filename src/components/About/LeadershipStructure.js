@@ -4,6 +4,7 @@ import { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { User, Shield, Users } from 'lucide-react';
+import Image from 'next/image';
 
 export default function LeadershipStructure() {
   const containerRef = useRef(null);
@@ -77,18 +78,21 @@ export default function LeadershipStructure() {
               }`}
             >
               <div
-                className={`aspect-[3/4] overflow-hidden border ${
+                className={`aspect-3/4 overflow-hidden border ${
                   leader.special ? 'border-[#D4AF37]' : 'border-white/10'
                 } bg-[#111] relative`}
               >
-                <img
+                <Image
                   src={leader.img}
                   alt={leader.name}
+                  fill
                   className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  priority={leader.special}
                 />
 
                 {/* Name Plate */}
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-6 pt-20">
+                <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black to-transparent p-6 pt-20">
                   <p className="text-[#D4AF37] text-xs font-bold uppercase tracking-widest mb-1">
                     {leader.role}
                   </p>

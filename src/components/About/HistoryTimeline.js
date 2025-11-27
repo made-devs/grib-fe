@@ -86,7 +86,7 @@ export default function HistoryTimeline() {
 
         <div className="relative">
           {/* Center Line */}
-          <div className="absolute left-[19px] md:left-1/2 top-0 bottom-0 w-[2px] bg-[#333] -translate-x-1/2">
+          <div className="absolute left-[19px] md:left-1/2 top-0 bottom-0 w-0.5 bg-[#333] -translate-x-1/2">
             <div className="timeline-line-fill w-full bg-[#D4AF37] shadow-[0_0_15px_#D4AF37]"></div>
           </div>
 

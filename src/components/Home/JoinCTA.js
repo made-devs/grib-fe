@@ -68,7 +68,7 @@ export default function JoinCTA() {
       <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 mix-blend-multiply"></div>
 
       {/* Abstract Shapes */}
-      <div className="absolute top-0 right-0 w-[50%] h-full bg-gradient-to-l from-black via-black/80 to-transparent skew-x-12 translate-x-20"></div>
+      <div className="absolute top-0 right-0 w-[50%] h-full bg-linear-to-l from-black via-black/80 to-transparent skew-x-12 translate-x-20"></div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -111,7 +111,7 @@ export default function JoinCTA() {
             {/* Action Box */}
             <div className="cta-content bg-black/90 p-6 rounded-xl border border-white/10 shadow-2xl relative group">
               {/* Glow Border Effect */}
-              <div className="absolute -inset-1 bg-gradient-to-r from-white/20 to-transparent rounded-xl blur opacity-20 group-hover:opacity-50 transition-opacity"></div>
+              <div className="absolute -inset-1 bg-linear-to-r from-white/20 to-transparent rounded-xl blur opacity-20 group-hover:opacity-50 transition-opacity"></div>
 
               <div className="relative flex flex-col sm:flex-row gap-4">
                 <div className="flex-1">
@@ -141,10 +141,10 @@ export default function JoinCTA() {
             <div className="id-card-mockup w-[320px] h-[500px] md:w-[400px] md:h-[600px] bg-[#0a0a0a] rounded-2xl border-2 border-[#D4AF37] relative overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
               {/* Card Background & Texture */}
               <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20"></div>
-              <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none"></div>
+              <div className="absolute inset-0 bg-linear-to-br from-white/5 to-transparent pointer-events-none"></div>
 
               {/* Holographic Shine */}
-              <div className="absolute -inset-[100%] bg-gradient-to-r from-transparent via-white/10 to-transparent -rotate-45 animate-shine pointer-events-none"></div>
+              <div className="absolute -inset-full bg-linear-to-r from-transparent via-white/10 to-transparent -rotate-45 animate-shine pointer-events-none"></div>
 
               {/* Card Content */}
               <div className="relative z-10 p-8 flex flex-col h-full">

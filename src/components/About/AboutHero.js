@@ -3,6 +3,7 @@
 import { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import Image from 'next/image';
 
 export default function AboutHero() {
   const containerRef = useRef(null);
@@ -49,12 +50,14 @@ export default function AboutHero() {
     >
       {/* Background Visual (Hercules High Contrast) */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent z-10"></div>
+        <div className="absolute inset-0 bg-linear-to-r from-black via-black/80 to-transparent z-10"></div>
         {/* Placeholder image sosok Hercules/Massa */}
-        <img
+        <Image
           src="https://images.unsplash.com/photo-1552089123-2d26226fc2b7?auto=format&fit=crop&q=80"
           alt="GRIB Legacy"
+          fill
           className="w-full h-full object-cover grayscale opacity-60"
+          priority
         />
       </div>
 
@@ -79,8 +82,8 @@ export default function AboutHero() {
           </h1>
 
           <p className="hero-desc text-xl md:text-2xl text-gray-300 font-light border-l-4 border-[#D4AF37] pl-6 max-w-xl">
-            "Dari kekuatan jalanan menjadi garda terdepan kedaulatan ekonomi dan
-            hukum bangsa."
+            &quot;Dari kekuatan jalanan menjadi garda terdepan kedaulatan
+            ekonomi dan hukum bangsa.&quot;
           </p>
 
           <div className="hero-desc mt-8 font-mono text-xs text-gray-500">
@@ -90,7 +93,7 @@ export default function AboutHero() {
       </div>
 
       {/* Decorative Grid */}
-      <div className="absolute bottom-0 right-0 w-1/3 h-full border-l border-white/5 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.02)_25%,rgba(255,255,255,0.02)_50%,transparent_50%,transparent_75%,rgba(255,255,255,0.02)_75%,rgba(255,255,255,0.02)_100%)] bg-[size:20px_20px] pointer-events-none"></div>
+      <div className="absolute bottom-0 right-0 w-1/3 h-full border-l border-white/5 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.02)_25%,rgba(255,255,255,0.02)_50%,transparent_50%,transparent_75%,rgba(255,255,255,0.02)_75%,rgba(255,255,255,0.02)_100%)] bg-size-[20px_20px] pointer-events-none"></div>
     </section>
   );
 }

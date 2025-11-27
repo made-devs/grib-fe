@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
 
 import { useRef } from 'react';
@@ -122,7 +123,7 @@ export default function AboutBrief() {
               className="reveal-text font-oswald text-5xl md:text-6xl font-bold text-white uppercase leading-[0.9] mb-8"
             >
               Transformasi <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#F2D06B] to-[#D4AF37]">
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-[#D4AF37] via-[#F2D06B] to-[#D4AF37]">
                 Total
               </span>
             </h2>
@@ -158,10 +159,10 @@ export default function AboutBrief() {
           {/* --- Right Column: Visuals & Tactics (7 Cols) --- */}
           <div className="lg:col-span-7 flex flex-col gap-8">
             {/* 1. Hero Image with Clip Path */}
-            <div className="about-image-container relative w-full aspect-[16/9] lg:aspect-[21/9] mb-4 group">
+            <div className="about-image-container relative w-full aspect-video lg:aspect-21/9 mb-4 group">
               {/* Image */}
               <div className="about-image w-full h-full relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10 opacity-60"></div>
+                <div className="absolute inset-0 bg-linear-to-t from-black via-transparent to-transparent z-10 opacity-60"></div>
                 <img
                   src="/grib2.webp"
                   alt="Kegiatan GRIB"
@@ -204,7 +205,7 @@ export default function AboutBrief() {
                   </div>
 
                   {/* Hover Progress Line */}
-                  <div className="absolute bottom-0 left-0 h-[2px] bg-[#D4AF37] w-0 group-hover:w-full transition-all duration-500 ease-out"></div>
+                  <div className="absolute bottom-0 left-0 h-0.5 bg-[#D4AF37] w-0 group-hover:w-full transition-all duration-500 ease-out"></div>
                 </div>
               ))}
             </div>

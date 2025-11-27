@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
 
 import React, { useState, useRef } from 'react';
@@ -118,14 +119,14 @@ export default function EconomicPillars() {
         {/* Header Section */}
         <div className="mb-16 text-center md:text-left">
           <div className="inline-flex items-center gap-2 mb-4">
-            <div className="h-[2px] w-8 bg-[#D4AF37]"></div>
+            <div className="h-0.5 w-8 bg-[#D4AF37]"></div>
             <span className="text-[#D4AF37] font-bold uppercase tracking-[0.2em] text-xs">
               Ekosistem Bisnis
             </span>
           </div>
           <h2 className="font-oswald text-4xl md:text-6xl font-bold text-white uppercase leading-none mb-6">
             4 Pilar{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] to-amber-700">
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-[#D4AF37] to-amber-700">
               Ekonomi
             </span>
           </h2>
@@ -149,8 +150,8 @@ export default function EconomicPillars() {
                   transition-all duration-500 ease-out cursor-pointer
                   ${
                     isActive
-                      ? 'lg:flex-[3] border-[#D4AF37] shadow-[0_0_30px_rgba(0,0,0,0.5)]'
-                      : 'lg:flex-[1] hover:border-white/30'
+                      ? 'lg:flex-3 border-[#D4AF37] shadow-[0_0_30px_rgba(0,0,0,0.5)]'
+                      : 'lg:flex-1 hover:border-white/30'
                   }
                 `}
               >
@@ -164,7 +165,7 @@ export default function EconomicPillars() {
                     }`}
                   />
                   <div
-                    className={`absolute inset-0 bg-gradient-to-b ${pillar.bgGradient} opacity-90 transition-opacity duration-500`}
+                    className={`absolute inset-0 bg-linear-to-b ${pillar.bgGradient} opacity-90 transition-opacity duration-500`}
                   ></div>
                   <div className="absolute inset-0 bg-black/40"></div>
                 </div>

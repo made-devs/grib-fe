@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
 
 import { useRef } from 'react';
@@ -87,7 +88,7 @@ export default function HeroSection() {
       <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20 mix-blend-overlay pointer-events-none"></div>
 
       {/* 2. Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-[#0f0f0f] to-[#1a1a1a] opacity-90"></div>
+      <div className="absolute inset-0 bg-linear-to-br from-black via-[#0f0f0f] to-[#1a1a1a] opacity-90"></div>
 
       {/* 3. Giant Parallax Text */}
       <div className="absolute top-1/4 -left-20 pointer-events-none select-none z-0">
@@ -98,8 +99,8 @@ export default function HeroSection() {
 
       {/* 4. Decorative Grid Lines */}
       <div className="absolute inset-0 z-0 pointer-events-none opacity-20">
-        <div className="absolute top-0 left-[10%] w-[1px] h-full bg-gradient-to-b from-transparent via-[#D4AF37] to-transparent"></div>
-        <div className="absolute top-0 right-[10%] w-[1px] h-full bg-gradient-to-b from-transparent via-[#D4AF37] to-transparent"></div>
+        <div className="absolute top-0 left-[10%] w-px h-full bg-linear-to-b from-transparent via-[#D4AF37] to-transparent"></div>
+        <div className="absolute top-0 right-[10%] w-px h-full bg-linear-to-b from-transparent via-[#D4AF37] to-transparent"></div>
       </div>
 
       {/* --- MAIN CONTENT --- */}
@@ -109,7 +110,7 @@ export default function HeroSection() {
           <div className="lg:col-span-7 flex flex-col justify-center">
             {/* Top Badge */}
             <div className="hero-fade inline-flex items-center gap-3 mb-8 pl-1">
-              <div className="h-[2px] w-8 bg-[#D4AF37]"></div>
+              <div className="h-0.5 w-8 bg-[#D4AF37]"></div>
               <span className="text-[#D4AF37] font-sans text-sm font-bold tracking-[0.3em] uppercase">
                 Official Website
               </span>
@@ -186,7 +187,7 @@ export default function HeroSection() {
           {/* RIGHT: VISUAL (Col 5) */}
           <div className="lg:col-span-5 relative h-full min-h-[500px] flex items-center justify-center lg:justify-end">
             {/* Main Image Frame */}
-            <div className="hero-image-clip relative w-full aspect-[3/4] max-w-md">
+            <div className="hero-image-clip relative w-full aspect-3/4 max-w-md">
               {/* Image Itself */}
               <div className="absolute inset-0 bg-neutral-800">
                 <img
@@ -230,7 +231,7 @@ export default function HeroSection() {
         <span className="text-[10px] uppercase tracking-[0.3em] text-white">
           Scroll Down
         </span>
-        <div className="w-[1px] h-12 bg-gradient-to-b from-[#D4AF37] to-transparent"></div>
+        <div className="w-px h-12 bg-linear-to-b from-[#D4AF37] to-transparent"></div>
       </div>
     </section>
   );
