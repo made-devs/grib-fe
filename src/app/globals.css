@@ -50,3 +50,15 @@ body {
   --black-primary: #0a0a0a;
   --black-secondary: #1a1a1a;
 }
+
+/* Hide default cursor on desktop */
+@media (min-width: 1024px) {
+  body {
+    cursor: none;
+  }
+  a,
+  button,
+  .cursor-pointer {
+    cursor: none;
+  }
+}

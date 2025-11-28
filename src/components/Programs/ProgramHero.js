@@ -3,7 +3,7 @@
 import { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { TrendingUp } from 'lucide-react';
+import Image from 'next/image';
 
 export default function ProgramHero() {
   const containerRef = useRef(null);
@@ -12,21 +12,33 @@ export default function ProgramHero() {
     () => {
       const tl = gsap.timeline();
 
-      tl.from('.prog-title', {
+      // Animasi persis sama dengan AboutHero untuk konsistensi 'Feel'
+      tl.from('.hero-title-text', {
         y: 100,
         opacity: 0,
         stagger: 0.1,
         duration: 1,
         ease: 'power4.out',
-      }).from(
-        '.prog-line',
-        {
-          scaleX: 0,
-          duration: 1,
-          ease: 'expo.out',
-        },
-        '-=0.5'
-      );
+      })
+        .from(
+          '.hero-desc',
+          {
+            x: -50,
+            opacity: 0,
+            duration: 0.8,
+          },
+          '-=0.5'
+        )
+        .from(
+          '.hero-badge',
+          {
+            scale: 0,
+            opacity: 0,
+            duration: 0.5,
+            ease: 'back.out(1.7)',
+          },
+          '-=0.8'
+        );
     },
     { scope: containerRef }
   );
@@ -34,42 +46,60 @@ export default function ProgramHero() {
   return (
     <section
       ref={containerRef}
-      className="relative h-[70vh] min-h-[500px] flex items-center bg-[#050505] overflow-hidden pt-20"
+      className="relative h-[80vh] min-h-[600px] flex items-center bg-[#050505] overflow-hidden pt-20"
     >
-      {/* Background Abstract Tech */}
-      <div className="absolute inset-0 z-0 opacity-30">
-        <div className="absolute top-0 right-0 w-2/3 h-full bg-gradient-to-l from-[#1a1a1a] to-transparent skew-x-12"></div>
-        <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#D4AF37]/10 to-transparent"></div>
+      {/* 1. Background Visual (Architecture/Structure Theme) 
+          Supaya match sama 'Arsenal', gue pake gambar struktur besi/bangunan yang solid.
+      */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-linear-to-r from-black via-black/85 to-transparent z-10"></div>
+        <Image
+          src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80"
+          alt="Business Structure"
+          fill
+          className="w-full h-full object-cover grayscale opacity-50"
+          priority
+        />
       </div>
 
       <div className="relative z-20 max-w-7xl mx-auto px-6 lg:px-12 w-full">
         <div className="max-w-4xl">
-          <div className="flex items-center gap-3 mb-6 text-[#D4AF37]">
-            <TrendingUp size={24} />
-            <span className="font-mono text-xs font-bold uppercase tracking-[0.3em]">
-              Economic Division
+          {/* 2. Tactical Badge (Konsisten dengan AboutHero) */}
+          <div className="hero-badge inline-flex items-center gap-2 px-3 py-1 border border-[#D4AF37] bg-[#D4AF37]/10 mb-6">
+            <div className="w-2 h-2 bg-[#D4AF37] animate-pulse"></div>
+            <span className="text-[#D4AF37] text-xs font-bold uppercase tracking-[0.2em]">
+              Divisi Ekonomi
             </span>
           </div>
 
+          {/* 3. Headline (Solid Gold, No Gradients) */}
           <h1 className="font-oswald text-6xl md:text-8xl font-bold text-white uppercase leading-[0.9] mb-8">
             <div className="overflow-hidden">
-              <span className="prog-title inline-block">Arsenal</span>
+              <span className="hero-title-text inline-block">Arsenal</span>
             </div>
-            <div className="overflow-hidden">
-              <span className="prog-title inline-block text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] to-amber-700">
-                Ekonomi
-              </span>
+            <div className="overflow-hidden text-[#D4AF37]">
+              {/* Pake solid gold biar tegas kayak 'TOTAL' di AboutHero */}
+              <span className="hero-title-text inline-block">Ekonomi</span>
             </div>
           </h1>
 
-          <div className="prog-line w-32 h-2 bg-[#D4AF37] mb-8 origin-left"></div>
+          {/* 4. Description (Border Left Style) */}
+          <div className="hero-desc border-l-4 border-[#D4AF37] pl-6 max-w-2xl">
+            <p className="text-xl md:text-2xl text-gray-300 font-light leading-relaxed">
+              4 Pilar Bisnis Raksasa yang siap mengubah anggota GRIB Jaya
+              menjadi pengusaha mandiri dan profesional.
+            </p>
+          </div>
 
-          <p className="prog-title text-xl text-gray-400 font-light max-w-2xl leading-relaxed">
-            4 Pilar Bisnis Raksasa yang siap mengubah anggota GRIB Jaya menjadi
-            pengusaha mandiri dan profesional. Satu ekosistem, jutaan peluang.
-          </p>
+          {/* 5. Footer Meta Data (Tambahan biar layout bawahnya ga kosong dibanding About) */}
+          <div className="hero-desc mt-8 font-mono text-xs text-gray-500">
+            SATU KOMANDO // SATU EKOSISTEM // JUTAAN PELUANG
+          </div>
         </div>
       </div>
+
+      {/* 6. Decorative Grid (Elemen wajib biar 'Satu Universe') */}
+      <div className="absolute bottom-0 right-0 w-1/3 h-full border-l border-white/5 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.02)_25%,rgba(255,255,255,0.02)_50%,transparent_50%,transparent_75%,rgba(255,255,255,0.02)_75%,rgba(255,255,255,0.02)_100%)] bg-size-[20px_20px] pointer-events-none"></div>
     </section>
   );
 }

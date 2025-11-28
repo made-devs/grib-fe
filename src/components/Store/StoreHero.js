@@ -3,7 +3,7 @@
 import { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { ShoppingCart, Package } from 'lucide-react';
+import Image from 'next/image';
 
 export default function StoreHero() {
   const containerRef = useRef(null);
@@ -12,20 +12,33 @@ export default function StoreHero() {
     () => {
       const tl = gsap.timeline();
 
-      tl.from('.hero-badge', {
-        scale: 0,
+      // Sequence animasi disamakan dengan komponen Hero lainnya
+      tl.from('.hero-title-char', {
+        y: 100,
         opacity: 0,
-        duration: 0.5,
-        ease: 'back.out(1.7)',
+        stagger: 0.1,
+        duration: 1,
+        ease: 'power4.out',
       })
-        .from('.hero-title span', {
-          y: 100,
-          opacity: 0,
-          stagger: 0.1,
-          duration: 1,
-          ease: 'power4.out',
-        })
-        .from('.hero-desc', { x: -30, opacity: 0, duration: 0.8 }, '-=0.5');
+        .from(
+          '.hero-desc',
+          {
+            x: -50,
+            opacity: 0,
+            duration: 0.8,
+          },
+          '-=0.5'
+        )
+        .from(
+          '.hero-badge',
+          {
+            scale: 0,
+            opacity: 0,
+            duration: 0.5,
+            ease: 'back.out(1.7)',
+          },
+          '-=0.8'
+        );
     },
     { scope: containerRef }
   );
@@ -33,34 +46,59 @@ export default function StoreHero() {
   return (
     <section
       ref={containerRef}
-      className="relative h-[50vh] min-h-[400px] flex items-center bg-[#050505] overflow-hidden pt-20 border-b border-[#333]"
+      className="relative h-[80vh] min-h-[600px] flex items-center bg-[#050505] overflow-hidden pt-20"
     >
-      {/* Background Texture - Hexagon Grid */}
-      <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/hexellence.png')] opacity-5"></div>
-      <div className="absolute right-0 bottom-0 w-2/3 h-full bg-gradient-to-l from-[#D4AF37]/5 to-transparent"></div>
+      {/* 1. Background Visual (Logistics/Warehouse Theme) 
+          Menggunakan image gudang industrial yang dramatic
+      */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-linear-to-r from-black via-black/85 to-transparent z-10"></div>
+        <Image
+          src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80"
+          alt="Logistics Warehouse"
+          fill
+          className="w-full h-full object-cover grayscale opacity-50"
+          priority
+        />
+      </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 w-full">
+      <div className="relative z-20 max-w-7xl mx-auto px-6 lg:px-12 w-full">
         <div className="max-w-4xl">
-          <div className="hero-badge inline-flex items-center gap-3 mb-6 border border-[#D4AF37]/50 bg-[#D4AF37]/10 px-4 py-1 rounded-full">
-            <Package size={16} className="text-[#D4AF37]" />
-            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#D4AF37]">
+          {/* 2. Tactical Badge (Konsisten: Kotak + Pulse) */}
+          <div className="hero-badge inline-flex items-center gap-2 px-3 py-1 border border-[#D4AF37] bg-[#D4AF37]/10 mb-6">
+            <div className="w-2 h-2 bg-[#D4AF37] animate-pulse"></div>
+            <span className="text-[#D4AF37] text-xs font-bold uppercase tracking-[0.2em]">
               Official Supply Chain
             </span>
           </div>
 
-          <h1 className="hero-title font-oswald text-6xl md:text-8xl font-bold text-white uppercase leading-[0.9] mb-8">
-            <span className="inline-block">Gudang</span> <br />
-            <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] to-amber-700">
-              Logistik
-            </span>
+          {/* 3. Headline (Solid Gold, No Gradients) */}
+          <h1 className="font-oswald text-6xl md:text-8xl font-bold text-white uppercase leading-[0.9] mb-8">
+            <div className="overflow-hidden">
+              <span className="hero-title-char inline-block">Gudang</span>
+            </div>
+            <div className="overflow-hidden text-[#D4AF37]">
+              <span className="hero-title-char inline-block">Logistik</span>
+            </div>
           </h1>
 
-          <p className="hero-desc text-xl text-gray-400 font-light max-w-2xl leading-relaxed border-l-4 border-[#D4AF37] pl-6">
-            Pusat perbekalan resmi GRIB Jaya. Menyediakan atribut organisasi,
-            produk impor Pasticuan, hingga suku cadang kendaraan.
-          </p>
+          {/* 4. Description (Border Left Style) */}
+          <div className="hero-desc border-l-4 border-[#D4AF37] pl-6 max-w-2xl">
+            <p className="text-xl md:text-2xl text-gray-300 font-light leading-relaxed">
+              Pusat perbekalan resmi GRIB Jaya. Menyediakan atribut organisasi,
+              produk impor, hingga suku cadang kendaraan.
+            </p>
+          </div>
+
+          {/* 5. Footer Meta Data (Supply Chain Style) */}
+          <div className="hero-desc mt-8 font-mono text-xs text-gray-500">
+            AUTHENTIC GEAR // PASTICUAN // SPAREPARTS
+          </div>
         </div>
       </div>
+
+      {/* 6. Decorative Grid (Signature Element) */}
+      <div className="absolute bottom-0 right-0 w-1/3 h-full border-l border-white/5 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.02)_25%,rgba(255,255,255,0.02)_50%,transparent_50%,transparent_75%,rgba(255,255,255,0.02)_75%,rgba(255,255,255,0.02)_100%)] bg-size-[20px_20px] pointer-events-none"></div>
     </section>
   );
 }

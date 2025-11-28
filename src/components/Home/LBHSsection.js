@@ -112,7 +112,7 @@ export default function LBHSection() {
       className="relative py-24 bg-[#050505] overflow-hidden border-t border-[#333]"
     >
       {/* Background Grid Lines */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(212,175,55,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(212,175,55,0.03)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none"></div>
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(212,175,55,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(212,175,55,0.03)_1px,transparent_1px)] bg-size-[40px_40px] pointer-events-none"></div>
 
       <div className="relative z-10 container mx-auto px-6 lg:px-12">
         <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
@@ -193,7 +193,7 @@ export default function LBHSection() {
             </div>
 
             {/* Hotline */}
-            <div className="bg-gradient-to-r from-[#D4AF37] to-amber-600 p-4 rounded-xl shadow-lg flex items-center justify-between">
+            <div className="bg-linear-to-r from-[#D4AF37] to-amber-600 p-4 rounded-xl shadow-lg flex items-center justify-between">
               <div>
                 <p className="text-black font-bold text-[10px] uppercase tracking-widest">
                   Darurat Hukum?
@@ -211,10 +211,10 @@ export default function LBHSection() {
             {/* Tactical Overlays (Ditaruh di atas peta) */}
             <div className="absolute inset-0 pointer-events-none z-20">
               {/* Grid Overlay */}
-              <div className="absolute inset-0 bg-[linear-gradient(transparent_98%,#D4AF37_98%)] bg-[size:100%_100px] opacity-[0.03]"></div>
+              <div className="absolute inset-0 bg-[linear-gradient(transparent_98%,#D4AF37_98%)] bg-size-[100%_100px] opacity-[0.03]"></div>
 
               {/* Radar Line */}
-              <div className="radar-line absolute left-0 right-0 h-[1px] bg-[#D4AF37] shadow-[0_0_10px_#D4AF37] opacity-30"></div>
+              <div className="radar-line absolute left-0 right-0 h-px bg-[#D4AF37] shadow-[0_0_10px_#D4AF37] opacity-30"></div>
 
               {/* Corner HUDs */}
               <div className="absolute top-4 right-4 bg-black/80 backdrop-blur border border-white/10 p-3 rounded z-30">

@@ -1,6 +1,8 @@
 import { Inter, Oswald } from 'next/font/google';
 import './globals.css';
 import GSAPProvider from '@/components/providers/GSAPProvider';
+import TacticalCursorWrapper from '@/components/UI/TacticalCursorWrapper';
+import Preloader from '@/components/UI/Preloader';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const oswald = Oswald({ subsets: ['latin'], variable: '--font-oswald' });
@@ -15,8 +17,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="id">
       <body
-        className={`${inter.variable} ${oswald.variable} font-sans bg-[#0a0a0a] text-[#ededed]`}
+        className={`${inter.variable} ${oswald.variable} font-sans bg-[#0a0a0a] text-[#ededed] cursor-none`}
       >
+        {/* 1. Tactical UI Elements Global */}
+        <Preloader />
+        <TacticalCursorWrapper />
+
+        {/* 2. Provider Animation */}
         <GSAPProvider>{children}</GSAPProvider>
       </body>
     </html>

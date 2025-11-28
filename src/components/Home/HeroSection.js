@@ -64,9 +64,10 @@ export default function HeroSection() {
           '-=0.5'
         );
 
-      // Parallax Effect for Background Text
-      gsap.to('.bg-hero-text', {
+      // Parallax Effect for Background Logo
+      gsap.to('.bg-hero-logo', {
         y: 150,
+        rotation: 15, // Sedikit rotasi biar dinamis
         scrollTrigger: {
           trigger: containerRef.current,
           start: 'top top',
@@ -90,11 +91,13 @@ export default function HeroSection() {
       {/* 2. Gradient Overlay */}
       <div className="absolute inset-0 bg-linear-to-br from-black via-[#0f0f0f] to-[#1a1a1a] opacity-90"></div>
 
-      {/* 3. Giant Parallax Text */}
+      {/* 3. Giant Parallax Logo (Ganti Text dengan Logo) */}
       <div className="absolute top-1/4 -left-20 pointer-events-none select-none z-0">
-        <h1 className="bg-hero-text font-oswald text-[20vw] font-bold text-[#111] leading-none opacity-60 whitespace-nowrap">
-          GRIB JAYA
-        </h1>
+        <img
+          src="/logo.webp"
+          alt="GRIB Logo Siluet"
+          className="bg-hero-logo w-[80vw] md:w-[50vw] opacity-5 filter grayscale invert brightness-50"
+        />
       </div>
 
       {/* 4. Decorative Grid Lines */}
@@ -191,7 +194,7 @@ export default function HeroSection() {
               {/* Image Itself */}
               <div className="absolute inset-0 bg-neutral-800">
                 <img
-                  src="/grib.webp"
+                  src="/team1.webp"
                   alt="GRIB Jaya Hero"
                   className="w-full h-full object-cover transition-all duration-700"
                 />

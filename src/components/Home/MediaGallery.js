@@ -12,6 +12,7 @@ import {
   Film,
   Image as ImageIcon,
 } from 'lucide-react';
+import Image from 'next/image';
 
 // --- DATA DUMMY ---
 const allMedia = [
@@ -19,7 +20,7 @@ const allMedia = [
   {
     id: 1,
     type: 'VIDEO',
-    src: '/grib3.webp',
+    src: '/team2.webp',
     title: 'Profil Organisasi 2024',
     cat: 'KEGIATAN',
     duration: '04:20',
@@ -142,7 +143,7 @@ export default function MediaGallery() {
             </div>
             <h2 className="font-oswald text-4xl md:text-5xl font-bold text-white uppercase leading-none">
               Lensa{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] to-amber-700">
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-[#D4AF37] to-amber-700">
                 Pergerakan
               </span>
             </h2>
@@ -179,10 +180,12 @@ export default function MediaGallery() {
           <div className="grid lg:grid-cols-12 gap-6 mb-8 h-auto lg:h-[500px]">
             {/* LEFT: MAIN VIDEO (8 Cols) - Height Full */}
             <div className="lg:col-span-8 h-[300px] lg:h-full video-frame relative group bg-[#111] border border-white/10 overflow-hidden rounded-sm">
-              <img
+              <Image
                 src={allMedia[0].src}
                 alt="Video Thumbnail"
+                fill
                 className="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-1000"
+                sizes="(max-width: 900px) 100vw, 900px"
               />
               <div className="absolute inset-0 flex items-center justify-center">
                 <button className="w-20 h-20 bg-[#D4AF37]/90 rounded-full flex items-center justify-center text-black hover:scale-110 transition-transform shadow-[0_0_30px_#D4AF37]">
@@ -219,11 +222,14 @@ export default function MediaGallery() {
             <div className="lg:col-span-4 flex flex-col gap-6 h-full">
               {/* Item 1 */}
               <div className="gallery-item-anim flex-1 relative group overflow-hidden border border-white/10 bg-[#111] min-h-[150px]">
-                <img
+                <Image
                   src={allMedia[1].src}
+                  alt={allMedia[1].title}
+                  fill
                   className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                  sizes="(max-width: 400px) 100vw, 400px"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                <div className="absolute inset-0 bg-linear-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
                   <p className="text-white font-bold font-oswald uppercase text-lg">
                     {allMedia[1].title}
                   </p>
@@ -231,11 +237,14 @@ export default function MediaGallery() {
               </div>
               {/* Item 2 */}
               <div className="gallery-item-anim flex-1 relative group overflow-hidden border border-white/10 bg-[#111] min-h-[150px]">
-                <img
+                <Image
                   src={allMedia[2].src}
+                  alt={allMedia[2].title}
+                  fill
                   className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                  sizes="(max-width: 400px) 100vw, 400px"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                <div className="absolute inset-0 bg-linear-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
                   <p className="text-white font-bold font-oswald uppercase text-lg">
                     {allMedia[2].title}
                   </p>
@@ -250,16 +259,19 @@ export default function MediaGallery() {
           {filteredData.slice(activeFilter === 'ALL' ? 3 : 0).map((item) => (
             <div
               key={item.id}
-              className="gallery-item-anim relative group aspect-[4/3] overflow-hidden border border-white/10 bg-[#111]"
+              className="gallery-item-anim relative group aspect-4/3 overflow-hidden border border-white/10 bg-[#111]"
             >
-              <img
+              <Image
                 src={item.src}
+                alt={item.title}
+                fill
                 className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                sizes="(max-width: 400px) 100vw, 400px"
               />
               <div className="absolute top-4 right-4 bg-black/70 px-2 py-1 text-[#D4AF37] text-xs font-bold uppercase border border-[#D4AF37]/30">
                 {item.cat}
               </div>
-              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black via-black/80 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+              <div className="absolute bottom-0 left-0 right-0 p-6 bg-linear-to-t from-black via-black/80 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                 <h3 className="text-white font-oswald text-lg uppercase leading-tight">
                   {item.title}
                 </h3>
@@ -286,10 +298,10 @@ export default function MediaGallery() {
           {[...socialFeed, ...socialFeed].map((item, idx) => (
             <div
               key={idx}
-              className="flex-shrink-0 w-64 aspect-[9/16] bg-[#111] border border-white/10 rounded relative group overflow-hidden cursor-pointer hover:border-[#D4AF37] transition-colors"
+              className="shrink-0 w-64 aspect-9/16 bg-[#111] border border-white/10 rounded relative group overflow-hidden cursor-pointer hover:border-[#D4AF37] transition-colors"
             >
               {/* Fake Video BG */}
-              <div className="absolute inset-0 bg-gradient-to-b from-gray-800 to-black opacity-50"></div>
+              <div className="absolute inset-0 bg-linear-to-b from-gray-800 to-black opacity-50"></div>
               <div className="absolute inset-0 flex items-center justify-center">
                 <Play
                   className="text-white opacity-50 group-hover:scale-125 transition-transform"
@@ -299,7 +311,7 @@ export default function MediaGallery() {
               </div>
 
               {/* Overlay Info */}
-              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent">
+              <div className="absolute bottom-0 left-0 right-0 p-4 bg-linear-to-t from-black to-transparent">
                 <div className="flex items-center justify-between mb-2">
                   {item.platform === 'tiktok' ? (
                     <span className="text-xs font-bold text-pink-500">

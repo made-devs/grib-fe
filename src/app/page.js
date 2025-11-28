@@ -10,6 +10,7 @@ import TrainingSection from '../components/Home/TrainingSection';
 import MediaGallery from '../components/Home/MediaGallery';
 import JoinCTA from '../components/Home/JoinCTA';
 import VisiMisi from '../components/Home/VisiMisi';
+import GovernmentAlignment from '../components/Home/GovernmentAlignment';
 
 export default function Home() {
   return (
@@ -17,8 +18,9 @@ export default function Home() {
       <Navbar />
       <HeroSection />
       <VisiMisi />
-      <ProgramSlider />
       <AboutSection />
+      <GovernmentAlignment />
+      <ProgramSlider />
       <EconomicPillars />
       <LBHSection />
       <TrainingSection />
