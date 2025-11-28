@@ -13,12 +13,22 @@ import {
   ChevronRight,
   Fingerprint,
   Crown,
-  CreditCard,
 } from 'lucide-react';
 
 export default function RegistrationForm() {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
+
+  // FIX: Menggunakan Lazy Initialization untuk state agar hanya dijalankan sekali
+  // dan menghindari 'cascading render' dari useEffect.
+  const [sessionId] = useState(
+    () =>
+      `GRB-${Date.now().toString(36).toUpperCase()}-${Math.random()
+        .toString(36)
+        .substring(2, 8)
+        .toUpperCase()}`
+  );
+
   const [formData, setFormData] = useState({
     nik: '',
     name: '',
@@ -119,7 +129,8 @@ export default function RegistrationForm() {
 
         <div className="relative z-10">
           <div className="p-4 bg-black/50 border border-white/10 rounded text-[10px] font-mono text-gray-500">
-            <p>SESSION ID: {sessionIdRef.current}</p>
+            {/* FIX: suppressHydrationWarning ditambahkan untuk mencegah error karena ID di server != ID di client */}
+            <p suppressHydrationWarning>SESSION ID: {sessionId}</p>
             <p>ENCRYPTION: AES-256</p>
           </div>
         </div>
