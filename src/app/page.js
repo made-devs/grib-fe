@@ -11,6 +11,7 @@ import MediaGallery from '../components/Home/MediaGallery';
 import JoinCTA from '../components/Home/JoinCTA';
 import VisiMisi from '../components/Home/VisiMisi';
 import GovernmentAlignment from '../components/Home/GovernmentAlignment';
+import ChinaOutpost from '../components/Home/ChinaOutpost';
 
 export default function Home() {
   return (
@@ -25,6 +26,7 @@ export default function Home() {
       <LBHSection />
       <TrainingSection />
       <MediaGallery />
+      <ChinaOutpost />
       <JoinCTA />
       <Footer />
     </main>
